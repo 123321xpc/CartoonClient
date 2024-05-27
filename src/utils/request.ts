@@ -2,8 +2,7 @@ import axios, { AxiosError, type Method } from 'axios';
 import { ElMessage } from 'element-plus';
 
 const instance = axios.create({
-  baseURL: 'https://localhost:8080/',
-  timeout: 10000
+  baseURL: 'http://localhost:8000/',
 });
 
 instance.interceptors.request.use(
@@ -20,15 +19,17 @@ instance.interceptors.request.use(
 );
 
 instance.interceptors.response.use(
-    (res) => {
-        if(res.data.code !== 200){
-            ElMessage({
-                message: '请求失败，请稍后再试！',
-                type: 'error'
-            })
-        }
+    (result) => {
+        const res = JSON.parse(result.data);
+        // console.log(res);
         
-      return res.data;
+      ElMessage({
+          message: res.msg,
+          type: res.code === 200? 'success' : 'error'
+      })
+
+        
+      return res;
     },
     (error : AxiosError) => {
         ElMessage({
