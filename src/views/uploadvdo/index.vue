@@ -56,7 +56,6 @@ const handleUpload =  async () => {
     chooseTypeVisible.value = true;
     return;
   }
-
   loading.value = true;
   try{
     const res = await request('/uploadvdo', 'post', formData.value); 
