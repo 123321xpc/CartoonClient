@@ -66,6 +66,7 @@ const handleUpload =  async () => {
 
   }finally{
     loading.value = false;
+    type.value = undefined;
   }
 
 }
